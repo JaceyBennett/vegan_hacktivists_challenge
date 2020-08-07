@@ -39,7 +39,15 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                  <input type="text" name="question" id="question" class="form-control" placeholder="e.g. Random Question Will Go Here" aria-describedby="helpId">
+                    <input 
+                        type="text" 
+                        name="question" 
+                        id="question" 
+                        class="form-control {{ $errors->has('question') ? 'is-invalid': '' }}" 
+                        placeholder="e.g. Random Question Will Go Here" 
+                        aria-describedby="questionId" 
+                        value="{{ old('question') }}"
+                    >
                   <small id="helpId" class="text-muted">The more you know, the more you grow!</small>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
