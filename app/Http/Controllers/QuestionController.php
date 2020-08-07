@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class QuestionController extends Controller
 {
@@ -14,7 +15,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = Question::paginate(10);
+        return view('questions.index', compact('questions'));
     }
 
     /**
