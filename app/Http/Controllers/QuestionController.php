@@ -41,7 +41,7 @@ class QuestionController extends Controller
     {
         // Validate the data
         $validator = Validator::make($request->all(), [
-            'question' => 'required|string|unique:questions|regex:/\\?$/',
+            'question' => 'required|string|min:5|unique:questions|regex:/\\?$/',
         ],
         [ 
             'question.regex' => 'Questions need to have a question mark at the end, silly!',
