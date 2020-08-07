@@ -20,11 +20,17 @@
     <main role="main">
     <section class="jumbotron text-center">
         <div class="container">
-        <h1>Vegan Q&A</h1>
-        <p class="lead text-muted">Answering your burning questions about veganism.</p>
-        <p>
-            Question form will go here
-        </p>
+            <h1>Vegan Q&A</h1>
+            <p class="lead text-muted">Answering your burning questions about veganism.</p>
+            <form action="/question/create" method="POST">
+                @csrf
+                <div class="form-group">
+                  <label for="question">Ask A Question</label>
+                  <input type="text" name="question" id="question" class="form-control" placeholder="e.g. Random Question Will Go Here" aria-describedby="helpId">
+                  <small id="helpId" class="text-muted">The more you know, the more you grow!</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </section>
 
