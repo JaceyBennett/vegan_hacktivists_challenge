@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'QuestionController@index');
-Route::post('/questions', 'QuestionController@store');
+Route::post('/', 'QuestionController@store');

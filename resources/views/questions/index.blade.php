@@ -22,7 +22,7 @@
         <div class="container">
             <h1>Vegan Q&A</h1>
             <p class="lead text-muted">Answering your burning questions about veganism.</p>
-            <form action="/questions" method="POST">
+            <form action="/" method="POST">
                 @csrf
                 <div class="form-group">
                   <label for="question">Ask A Question</label>
