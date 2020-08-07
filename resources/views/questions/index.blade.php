@@ -17,7 +17,7 @@
 
     </head>
   <body>
-    <main role="main">
+    <main>
     <section class="jumbotron text-center">
         <div class="container">
             <a href="/">
@@ -47,7 +47,6 @@
                         id="question" 
                         class="form-control {{ $errors->has('question') ? 'is-invalid': '' }}" 
                         placeholder="e.g. {{ $randomQuestion }}" 
-                        aria-describedby="questionId" 
                         value="{{ old('question') }}"
                     >
                   <small id="helpId" class="text-muted">The more you know, the more you grow!</small>
@@ -70,7 +69,7 @@
                             </div>
                             <div class="card-body">
                             <h4 class="card-text">{{ $question->question }}</h4>
-                            <a class="btn btn-info btn-block" href="/questions/{{ $question->id }}" role="button"">
+                            <a class="btn btn-info btn-block" href="/questions/{{ $question->id }}" role="button">
                                 @if ($question->answer->count())
                                     {{ $question->answer->count() }} Answer(s)
                                 @else

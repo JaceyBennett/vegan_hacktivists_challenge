@@ -17,7 +17,7 @@
 
     </head>
   <body>
-    <main role="main">
+    <main>
     <section class="jumbotron text-center">
         <div class="container">
             <a href="/">
@@ -47,8 +47,6 @@
                         name="answer" 
                         id="answer" 
                         class="form-control {{ $errors->has('answer') ? 'is-invalid': '' }}" 
-                        
-                        aria-describedby="answerId" 
                         value="{{ old('answer') }}"
                     >
                 </div>
