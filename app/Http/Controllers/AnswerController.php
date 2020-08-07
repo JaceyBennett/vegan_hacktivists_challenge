@@ -37,17 +37,10 @@ class AnswerController extends Controller
     public function store(Request $request, $id)
     {
         // Validate the data
-        $validator = Validator::make($request->all(), [
+        $validator = $request->validate([
             'answer' => 'required|min:5',
         ]
-        );
-
-        // If the form validation fails, reload the page and show the errors
-        if ($validator->fails()) {
-            return redirect('/questions/' . $id)
-                ->withErrors($validator)
-                ->withInput();
-        }
+        );        
 
         // Add the answer to the database
         $answer = Answer::create(

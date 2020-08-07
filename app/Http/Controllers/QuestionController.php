@@ -57,7 +57,7 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         // Validate the data
-        $validator = Validator::make($request->all(), [
+        $validator = $request->validate([
             'question' => 'required|string|min:5|unique:questions|regex:/\\?$/',
         ],
         [ 
@@ -65,14 +65,7 @@ class QuestionController extends Controller
             'question.unique' => 'That question has already been asked.',
         ]
     );
-
-        // If the form validation fails, reload the page and show the errors
-        if ($validator->fails()) {
-            return redirect('/')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
+      
         // Add the question to the database
         $question = Question::create(
             [
