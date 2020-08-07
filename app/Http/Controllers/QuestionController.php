@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use Illuminate\Support\Arr;
 use Validator;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -17,8 +18,23 @@ class QuestionController extends Controller
      */
     public function index()
     {
+        $questionArray = [
+            'Isn’t it hard to be vegan?',
+            'Where do you get your protein?',
+            'I only eat free-range eggs. That’s okay, right?',
+            'Isn’t it expensive to be vegan?',
+            'I could never be vegan; I love the taste of meat too much.',
+            'Doesn’t the bible endorse eating animals?',
+            'Haven’t we evolved to eat meat? It’s natural!',
+            'What would happen to all the animals if we stopped eating them?',
+            'What’s wrong with honey?',
+            'You don’t have to kill animals to get dairy and eggs, so what’s wrong with those products?',
+        ];
+
+        $randomQuestion = Arr::random($questionArray);
+        
         $questions = Question::orderBy('created_at', 'desc')->paginate(10);
-        return view('questions.index', compact('questions'));
+        return view('questions.index', compact('questions', 'randomQuestion'));
     }
 
     /**

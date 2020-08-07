@@ -44,7 +44,7 @@
                         name="question" 
                         id="question" 
                         class="form-control {{ $errors->has('question') ? 'is-invalid': '' }}" 
-                        placeholder="e.g. Random Question Will Go Here" 
+                        placeholder="e.g. {{ $randomQuestion }}" 
                         aria-describedby="questionId" 
                         value="{{ old('question') }}"
                     >
