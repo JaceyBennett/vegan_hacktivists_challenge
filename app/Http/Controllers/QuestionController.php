@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use Validator;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 
 class QuestionController extends Controller
 {
@@ -37,7 +39,31 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the data
+        $validator = Validator::make($request->all(), [
+            'question' => 'required|string|unique:questions|regex:/\\?$/',
+        ],
+        [ 
+            'question.regex' => 'Questions need to have a question mark at the end, silly!',
+            'question.unique' => 'That question has already been asked.',
+        ]
+    );
+
+        // If the form validation fails, reload the page and show the errors
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Add the question to the database
+        $question = Question::create(
+            [
+            'question' => request('question'),
+            ]
+        );
+
+        return redirect('/')->with('success', 'Your Question has been added!');
     }
 
     /**
@@ -84,4 +110,10 @@ class QuestionController extends Controller
     {
         //
     }
+
+    /**
+ * Get the error messages for the defined validation rules.
+ *
+ * @return array
+ */
 }

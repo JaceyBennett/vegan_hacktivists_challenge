@@ -22,10 +22,23 @@
         <div class="container">
             <h1>Vegan Q&A</h1>
             <p class="lead text-muted">Answering your burning questions about veganism.</p>
-            <form action="/question/create" method="POST">
+            <form action="/questions" method="POST">
                 @csrf
                 <div class="form-group">
                   <label for="question">Ask A Question</label>
+                @if (count($errors)>0)
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <ul>
+                                <li>{{ $error }}</li>
+                            </ul>
+                        @endforeach
+                    </div>
+                @elseif (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                   <input type="text" name="question" id="question" class="form-control" placeholder="e.g. Random Question Will Go Here" aria-describedby="helpId">
                   <small id="helpId" class="text-muted">The more you know, the more you grow!</small>
                 </div>
