@@ -20,6 +20,10 @@
     <main role="main">
     <section class="jumbotron text-center">
         <div class="container">
+            <a href="/">
+                <h1>Vegan Q&A</h1>
+            </a>
+            <p class="lead text-muted">Answering your burning questions about veganism.</p>
             <h1>{{ $question->question }}</h1>
             <form action="/answers/{{ $question->id }}" method="POST">
                 @csrf
@@ -55,21 +59,26 @@
 
   <div class="album py-5 bg-light">
     <div class="container">
-
-        @foreach($answers as $answer)
-            <div class="row">          
-                <div class="col-12-md">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            Answered on {{ $answer->created_at->format('l, F jS, Y') }} at {{ $answer->created_at->format('g:iA') }}
+        @if($answers->isNotEmpty())
+            @foreach($answers as $answer)
+                <div class="row">          
+                    <div class="col-12-md">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Answered on {{ $answer->created_at->format('l, F jS, Y') }} at {{ $answer->created_at->format('g:iA') }}
+                            </div>
+                            <div class="card-body">
+                            <h4 class="card-text">{{ $answer->answer }}</h4>
+                            </div>
                         </div>
-                        <div class="card-body">
-                        <h4 class="card-text">{{ $answer->answer }}</h4>
-                        </div>
-                    </div>
-                </div>        
-        </div>
-      @endforeach
+                    </div>        
+                </div>
+            @endforeach
+        @else
+            <div class="row">
+                <h2>This question has not been answered yet.</h2>
+            </div>
+        @endif
       <div class="row">
           <div class="col">
             {{ $answers->links() }}

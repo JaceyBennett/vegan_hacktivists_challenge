@@ -20,7 +20,9 @@
     <main role="main">
     <section class="jumbotron text-center">
         <div class="container">
-            <h1>Vegan Q&A</h1>
+            <a href="/">
+                <h1>Vegan Q&A</h1>
+            </a>
             <p class="lead text-muted">Answering your burning questions about veganism.</p>
             <form action="/" method="POST">
                 @csrf
@@ -59,25 +61,31 @@
     <div class="container">
 
       <div class="row">
-          @foreach($questions as $question)
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        Question asked on {{ $question->created_at->format('l, F jS, Y') }} at {{ $question->created_at->format('g:iA') }}
+            @if($questions->isNotEmpty())
+                @foreach($questions as $question)
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Question asked on {{ $question->created_at->format('l, F jS, Y') }} at {{ $question->created_at->format('g:iA') }}
+                            </div>
+                            <div class="card-body">
+                            <h4 class="card-text">{{ $question->question }}</h4>
+                            <a class="btn btn-info btn-block" href="/questions/{{ $question->id }}" role="button"">
+                                @if ($question->answer->count())
+                                    {{ $question->answer->count() }} Answer(s)
+                                @else
+                                    {{ $question->answer->count() }} Answer(s)
+                                @endif
+                            </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                    <h4 class="card-text">{{ $question->question }}</h4>
-                    <a class="btn btn-info btn-block" href="/questions/{{ $question->id }}" role="button"">
-                        @if ($question->answer->count())
-                            {{ $question->answer->count() }} Answer(s)
-                        @else
-                            {{ $question->answer->count() }} Answer(s)
-                        @endif
-                    </a>
-                    </div>
+                @endforeach
+            @else
+                <div class="row">
+                    <h2>There are no questions yet.</h2>
                 </div>
-            </div>
-        @endforeach
+            @endif
       </div>
       <div class="row">
           <div class="col">
