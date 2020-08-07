@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Question::class, function (Faker $faker) {
     return [
-        'question' => $faker->sentence($nbWords = 10, $variableNbWords = true) . '?',
+        'question' => str_replace('.', "?", $faker->sentence($nbWords = 10, $variableNbWords = true)),
     ];
 });
