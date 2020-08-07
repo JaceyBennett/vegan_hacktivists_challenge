@@ -85,7 +85,7 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = Question::find($id);
-        $answers = Answer::orderBy('created_at', 'desc')->where('question_id', '=', $id)->paginate(10);
+        $answers = Answer::orderBy('created_at', 'asc')->where('question_id', '=', $id)->paginate(10);
         return view('questions.show', compact('question', 'answers'));
     }
 
