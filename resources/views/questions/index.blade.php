@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Questions and Answers">
         <meta name="author" content="Jacey Bennett">
-        <title>Album example · Bootstrap</title>
+        <title>Vegan Q & A</title>
 
         <!-- Bootstrap core CSS -->
         <link 
@@ -40,7 +40,13 @@
                     </div>
                     <div class="card-body">
                     <h4 class="card-text">{{ $question->question }}</h4>
-                    <a href="#" class="card-link">See answers</a>
+                    <a class="btn btn-info btn-block" href="#" role="button"">
+                        @if ($question->answer->count())
+                            {{ $question->answer->count() }} Answer(s)
+                        @else
+                            {{ $question->answer->count() }} Answer(s)
+                        @endif
+                    </a>
                     </div>
                 </div>
             </div>
