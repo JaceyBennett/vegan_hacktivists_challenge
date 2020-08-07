@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Answer;
 use Illuminate\Support\Arr;
 use Validator;
 use Illuminate\Http\Request;
@@ -88,9 +89,11 @@ class QuestionController extends Controller
      * @param  \App\Question  $Question
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show($id)
     {
-        //
+        $question = Question::find($id);
+        $answers = Answer::orderBy('created_at', 'desc')->where('question_id', '=', $id)->paginate(10);
+        return view('questions.show', compact('question', 'answers'));
     }
 
     /**

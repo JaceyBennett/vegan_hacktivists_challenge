@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Questions and Answers">
         <meta name="author" content="Jacey Bennett">
-        <title>Vegan Q & A</title>
+        <title>{{ $question->question }}</title>
 
         <!-- Bootstrap core CSS -->
         <link 
@@ -20,12 +20,11 @@
     <main role="main">
     <section class="jumbotron text-center">
         <div class="container">
-            <h1>Vegan Q&A</h1>
-            <p class="lead text-muted">Answering your burning questions about veganism.</p>
-            <form action="/" method="POST">
+            <h1>{{ $question->question }}</h1>
+            <form action="/answers/{{ $question->id }}" method="POST">
                 @csrf
                 <div class="form-group">
-                  <label for="question">Ask A Question</label>
+                  <label for="answer">Can you answer this question?</label>
                 @if (count($errors)>0)
                     <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -41,16 +40,15 @@
                 @endif
                     <input 
                         type="text" 
-                        name="question" 
-                        id="question" 
-                        class="form-control {{ $errors->has('question') ? 'is-invalid': '' }}" 
-                        placeholder="e.g. {{ $randomQuestion }}" 
-                        aria-describedby="questionId" 
-                        value="{{ old('question') }}"
+                        name="answer" 
+                        id="answer" 
+                        class="form-control {{ $errors->has('answer') ? 'is-invalid': '' }}" 
+                        
+                        aria-describedby="answerId" 
+                        value="{{ old('answer') }}"
                     >
-                  <small id="helpId" class="text-muted">The more you know, the more you grow!</small>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit Answer</button>
             </form>
         </div>
     </section>
@@ -58,30 +56,23 @@
   <div class="album py-5 bg-light">
     <div class="container">
 
-      <div class="row">
-          @foreach($questions as $question)
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        Question asked on {{ $question->created_at->format('l, F jS, Y') }} at {{ $question->created_at->format('g:iA') }}
+        @foreach($answers as $answer)
+            <div class="row">          
+                <div class="col-12-md">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            Answered on {{ $answer->created_at->format('l, F jS, Y') }} at {{ $answer->created_at->format('g:iA') }}
+                        </div>
+                        <div class="card-body">
+                        <h4 class="card-text">{{ $answer->answer }}</h4>
+                        </div>
                     </div>
-                    <div class="card-body">
-                    <h4 class="card-text">{{ $question->question }}</h4>
-                    <a class="btn btn-info btn-block" href="/questions/{{ $question->id }}" role="button"">
-                        @if ($question->answer->count())
-                            {{ $question->answer->count() }} Answer(s)
-                        @else
-                            {{ $question->answer->count() }} Answer(s)
-                        @endif
-                    </a>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-      </div>
+                </div>        
+        </div>
+      @endforeach
       <div class="row">
           <div class="col">
-            {{ $questions->links() }}
+            {{ $answers->links() }}
         </div>
       </div>
     </div>

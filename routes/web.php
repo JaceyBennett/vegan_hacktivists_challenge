@@ -15,3 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'QuestionController@index');
 Route::post('/', 'QuestionController@store');
+Route::get('/questions/{id}', 'QuestionController@show')->where('id', '[0-9]+');
+
+Route::post('/answers/{id}', 'AnswerController@store')->where('id', '[0-9]+');

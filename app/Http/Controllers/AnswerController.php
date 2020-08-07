@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use Validator;
 use Illuminate\Http\Request;
 
 class AnswerController extends Controller
@@ -33,9 +34,30 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        // Validate the data
+        $validator = Validator::make($request->all(), [
+            'answer' => 'required|min:5',
+        ]
+        );
+
+        // If the form validation fails, reload the page and show the errors
+        if ($validator->fails()) {
+            return redirect('/questions/' . $id)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Add the answer to the database
+        $answer = Answer::create(
+            [
+                'question_id' => $id,
+                'answer' => request('answer'),
+            ]
+        );
+
+        return redirect('/questions/' . $id)->with('success', 'Your Answer has been added!');
     }
 
     /**
