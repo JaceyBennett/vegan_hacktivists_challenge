@@ -11,6 +11,6 @@ class QuestionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\Question::class, 10)->create();
     }
 }
